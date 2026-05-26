@@ -1,0 +1,18 @@
+{
+  "name": "getti",
+  "version": "1.0.0",
+  "description": "Backend para búsqueda de restaurantes, bares y cafés en Popayán",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^7.0.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^6.10.1"
+  }
+}
