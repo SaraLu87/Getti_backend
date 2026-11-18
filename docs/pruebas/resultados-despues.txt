@@ -1,0 +1,12 @@
+PASS tests/integration/resenas.test.js
+PASS tests/unit/patrones.test.js
+PASS tests/integration/auth.test.js
+PASS tests/arquitectura/contrato.test.js
+PASS tests/unit/establecimientoServicio.test.js
+PASS tests/unit/resenaServicio.test.js
+
+Test Suites: 6 passed, 6 total
+Tests:       48 passed, 48 total
+Snapshots:   0 total
+Time:        0.846 s, estimated 2 s
+Ran all test suites.

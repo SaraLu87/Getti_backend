@@ -2,12 +2,13 @@
 
 require('dotenv').config();
 
-const mongoose = require('mongoose');
+const db = require('./config/db');
 const app = require('./app');
+const { registrarSuscriptores } = require('./eventos/suscriptores');
 
-mongoose.Promise = global.Promise;
+registrarSuscriptores();
 
-mongoose.connect(process.env.MONGO_URI)
+db.conectar()
   .then(() => {
     console.log('Conexión a MongoDB establecida');
     app.listen(app.get('port'), () => {
@@ -15,5 +16,6 @@ mongoose.connect(process.env.MONGO_URI)
     });
   })
   .catch(err => {
-    console.error('Error al conectar a MongoDB:', err);
+    console.error('Error al conectar a MongoDB:', err.message);
+    process.exit(1);
   });

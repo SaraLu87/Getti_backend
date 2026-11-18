@@ -1,5 +1,6 @@
 'use strict'
 
+const bcrypt = require('bcryptjs');
 const Usuario = require('../modelos/usuario');
 
 const obtenerTodos = () => Usuario.find().select('-contrasena');
@@ -9,6 +10,12 @@ const obtenerPorId = (id) => Usuario.findById(id).select('-contrasena');
 const obtenerPorCorreo = (correo) => Usuario.findOne({ correo });
 
 const crear = (datos) => new Usuario(datos).save();
+
+// Registro: cifra la contraseña y crea el usuario con el rol y estado indicados.
+const registrar = async ({ nombre, correo, contrasena, rol, estado }) => {
+  const hash = await bcrypt.hash(contrasena, 10);
+  return new Usuario({ nombre, correo, contrasena: hash, rol, estado, fechaCreacion: new Date() }).save();
+};
 
 const actualizar = (id, datos) =>
   Usuario.findByIdAndUpdate(id, { $set: datos }, { new: true }).select('-contrasena');
@@ -30,4 +37,4 @@ const getFavoritos = (usuarioId) =>
     .select('favoritos')
     .populate('favoritos', 'nombre tipo direccion portada promedioCalificacion cantidadResenas');
 
-module.exports = { obtenerTodos, obtenerPorId, obtenerPorCorreo, crear, actualizar, eliminar, toggleFavorito, getFavoritos };
+module.exports = { obtenerTodos, obtenerPorId, obtenerPorCorreo, crear, registrar, actualizar, eliminar, toggleFavorito, getFavoritos };

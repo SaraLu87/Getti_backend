@@ -1,6 +1,7 @@
 'use strict'
 
 const Establecimiento = require('../modelos/establecimiento');
+const { obtenerEstrategia } = require('./estrategias');
 
 const construirFiltro = ({ tipo, keyword } = {}) => {
   const filtro = { activo: true };
@@ -23,7 +24,13 @@ const construirFiltro = ({ tipo, keyword } = {}) => {
   return filtro;
 };
 
-const obtenerTodos = (query) => Establecimiento.find(construirFiltro(query));
+// Si llega ?orden=calificacion|visualizaciones|resenas se aplica la estrategia (Strategy).
+// Sin ?orden el comportamiento es el mismo de antes.
+const obtenerTodos = async (query = {}) => {
+  const ordenar = query.orden ? obtenerEstrategia(query.orden) : null;
+  const establecimientos = await Establecimiento.find(construirFiltro(query));
+  return ordenar ? ordenar(establecimientos) : establecimientos;
+};
 
 const obtenerPorId = (id) => Establecimiento.findOne({ _id: id, activo: true });
 

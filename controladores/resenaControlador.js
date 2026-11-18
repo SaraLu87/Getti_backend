@@ -1,6 +1,7 @@
 'use strict'
 
 const servicio = require('../servicios/resenaServicio');
+const resenaFacade = require('../servicios/resenaFacade');
 
 const controller = {
 
@@ -31,7 +32,7 @@ const controller = {
         return res.status(400).json({ mensaje: 'Establecimiento, comentario y calificación son obligatorios' });
       }
 
-      const resena = await servicio.crear({
+      const resena = await resenaFacade.publicar({
         establecimientoId,
         usuarioId: req.usuario.id,
         comentario,

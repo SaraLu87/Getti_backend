@@ -2,7 +2,7 @@
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Usuario = require('../modelos/usuario');
+const usuarioServicio = require('../servicios/usuarioServicio');
 const { secret, expiresIn } = require('../config/jwt');
 
 const authController = {
@@ -15,23 +15,12 @@ const authController = {
         return res.status(400).json({ mensaje: 'Nombre, correo y contraseña son obligatorios' });
       }
 
-      const existente = await Usuario.findOne({ correo });
+      const existente = await usuarioServicio.obtenerPorCorreo(correo);
       if (existente) {
         return res.status(400).json({ mensaje: 'El correo ya está registrado' });
       }
 
-      const hash = await bcrypt.hash(contrasena, 10);
-
-      const usuario = new Usuario({
-        nombre,
-        correo,
-        contrasena: hash,
-        rol: 'usuario',
-        estado: 'aprobado',
-        fechaCreacion: new Date()
-      });
-
-      const guardado = await usuario.save();
+      const guardado = await usuarioServicio.registrar({ nombre, correo, contrasena, rol: 'usuario', estado: 'aprobado' });
       const { contrasena: _, ...datos } = guardado.toObject();
 
       res.status(201).json({ mensaje: 'Usuario registrado correctamente', usuario: datos });
@@ -48,23 +37,12 @@ const authController = {
         return res.status(400).json({ mensaje: 'Nombre, correo y contraseña son obligatorios' });
       }
 
-      const existente = await Usuario.findOne({ correo });
+      const existente = await usuarioServicio.obtenerPorCorreo(correo);
       if (existente) {
         return res.status(400).json({ mensaje: 'El correo ya está registrado' });
       }
 
-      const hash = await bcrypt.hash(contrasena, 10);
-
-      const usuario = new Usuario({
-        nombre,
-        correo,
-        contrasena: hash,
-        rol: 'empresario',
-        estado: 'pendiente',
-        fechaCreacion: new Date()
-      });
-
-      await usuario.save();
+      await usuarioServicio.registrar({ nombre, correo, contrasena, rol: 'empresario', estado: 'pendiente' });
 
       res.status(201).json({
         mensaje: 'Solicitud recibida. Tu cuenta está pendiente de aprobación por el equipo de Getti.'
@@ -82,7 +60,7 @@ const authController = {
         return res.status(400).json({ mensaje: 'Correo y contraseña son obligatorios' });
       }
 
-      const usuario = await Usuario.findOne({ correo });
+      const usuario = await usuarioServicio.obtenerPorCorreo(correo);
       if (!usuario) {
         return res.status(401).json({ mensaje: 'Credenciales incorrectas' });
       }

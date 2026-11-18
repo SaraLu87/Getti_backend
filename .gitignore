@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (secretos). Use .env.example como plantilla.
+.env
+
+# Archivos subidos por los usuarios en tiempo de ejecución
+uploads/*
+!uploads/.gitkeep
+
+# Reportes generados por las pruebas
+coverage/
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+.vscode/
