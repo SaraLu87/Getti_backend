@@ -4,7 +4,11 @@
   "description": "Backend para búsqueda de restaurantes, bares y cafés en Popayán",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/unit --runInBand",
+    "test:integracion": "jest tests/integration --runInBand",
+    "test:arquitectura": "jest tests/arquitectura --runInBand"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -14,5 +18,18 @@
     "mongoose": "^7.0.0",
     "multer": "^2.1.1",
     "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.3.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   }
 }

@@ -1,0 +1,336 @@
+# Resultados ANTES del cambio (baseline)
+# Fecha: 2026-11-18 16:38:05 UTC | Node v22.23.5 | Jest 29.7.0
+# Commit: a797b53 (sin modificaciones al código de la aplicación)
+# Comando: npx jest --runInBand --verbose
+
+FAIL tests/arquitectura/contrato.test.js
+  Regla de capas: Controlador → Servicio → Modelo
+    ✕ controladores/authControlador.js no importa modelos directamente (15 ms)
+    ✓ controladores/establecimientoControlador.js no importa modelos directamente (1 ms)
+    ✓ controladores/resenaControlador.js no importa modelos directamente (1 ms)
+    ✓ controladores/usuarioControlador.js no importa modelos directamente
+    ✓ servicios/emailServicio.js no importa controladores ni rutas (2 ms)
+    ✓ servicios/establecimientoServicio.js no importa controladores ni rutas (1 ms)
+    ✓ servicios/resenaServicio.js no importa controladores ni rutas (1 ms)
+    ✓ servicios/usuarioServicio.js no importa controladores ni rutas (1 ms)
+    ✓ modelos/establecimiento.js no importa servicios ni controladores (1 ms)
+    ✓ modelos/resena.js no importa servicios ni controladores (1 ms)
+    ✓ modelos/usuario.js no importa servicios ni controladores
+  Patrones declarados en el informe: existencia
+    ✕ Strategy: carpeta servicios/estrategias con índice (1 ms)
+    ✕ Observer: bus de eventos interno
+    ✕ Facade: servicios/resenaFacade.js (1 ms)
+    ✕ Singleton: config/db.js administra la conexión
+    ✕ index.js usa el Singleton y no conecta a Mongo por su cuenta
+  Higiene del repositorio y configuración segura
+    ✕ existe un .gitignore real (no .gitignore.txt)
+    ✕ JWT no tiene un secreto por defecto en el código (1 ms)
+
+  ● Regla de capas: Controlador → Servicio → Modelo › controladores/authControlador.js no importa modelos directamente
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "../modelos/usuario",
+    + ]
+
+      12 | describe('Regla de capas: Controlador → Servicio → Modelo', () => {
+      13 |   test.each(archivos('controladores'))('%s no importa modelos directamente', (f) => {
+    > 14 |     expect(importa(f).filter(r => r.includes('/modelos/'))).toEqual([]);
+         |                                                             ^
+      15 |   });
+      16 |   test.each(archivos('servicios'))('%s no importa controladores ni rutas', (f) => {
+      17 |     expect(importa(f).filter(r => /controladores|rutas/.test(r))).toEqual([]);
+
+
+  ● Patrones declarados en el informe: existencia › Strategy: carpeta servicios/estrategias con índice
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      23 |
+      24 | describe('Patrones declarados en el informe: existencia', () => {
+    > 25 |   test('Strategy: carpeta servicios/estrategias con índice', () => expect(existe('servicios/estrategias/index.js')).toBe(true));
+         |                                                                                                                     ^
+      26 |   test('Observer: bus de eventos interno', () => expect(existe('eventos/busEventos.js')).toBe(true));
+      27 |   test('Facade: servicios/resenaFacade.js', () => expect(existe('servicios/resenaFacade.js')).toBe(true));
+      28 |   test('Singleton: config/db.js administra la conexión', () => expect(existe('config/db.js')).toBe(true));
+
+
+  ● Patrones declarados en el informe: existencia › Observer: bus de eventos interno
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      24 | describe('Patrones declarados en el informe: existencia', () => {
+      25 |   test('Strategy: carpeta servicios/estrategias con índice', () => expect(existe('servicios/estrategias/index.js')).toBe(true));
+    > 26 |   test('Observer: bus de eventos interno', () => expect(existe('eventos/busEventos.js')).toBe(true));
+         |                                                                                          ^
+      27 |   test('Facade: servicios/resenaFacade.js', () => expect(existe('servicios/resenaFacade.js')).toBe(true));
+      28 |   test('Singleton: config/db.js administra la conexión', () => expect(existe('config/db.js')).toBe(true));
+      29 |   test('index.js usa el Singleton y no conecta a Mongo por su cuenta', () => {
+
+
+  ● Patrones declarados en el informe: existencia › Facade: servicios/resenaFacade.js
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      25 |   test('Strategy: carpeta servicios/estrategias con índice', () => expect(existe('servicios/estrategias/index.js')).toBe(true));
+      26 |   test('Observer: bus de eventos interno', () => expect(existe('eventos/busEventos.js')).toBe(true));
+    > 27 |   test('Facade: servicios/resenaFacade.js', () => expect(existe('servicios/resenaFacade.js')).toBe(true));
+         |                                                                                               ^
+      28 |   test('Singleton: config/db.js administra la conexión', () => expect(existe('config/db.js')).toBe(true));
+      29 |   test('index.js usa el Singleton y no conecta a Mongo por su cuenta', () => {
+      30 |     const src = leer('index.js');
+
+
+  ● Patrones declarados en el informe: existencia › Singleton: config/db.js administra la conexión
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      26 |   test('Observer: bus de eventos interno', () => expect(existe('eventos/busEventos.js')).toBe(true));
+      27 |   test('Facade: servicios/resenaFacade.js', () => expect(existe('servicios/resenaFacade.js')).toBe(true));
+    > 28 |   test('Singleton: config/db.js administra la conexión', () => expect(existe('config/db.js')).toBe(true));
+         |                                                                                               ^
+      29 |   test('index.js usa el Singleton y no conecta a Mongo por su cuenta', () => {
+      30 |     const src = leer('index.js');
+      31 |     expect(src).toMatch(/config\/db/);
+
+
+  ● Patrones declarados en el informe: existencia › index.js usa el Singleton y no conecta a Mongo por su cuenta
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /config\/db/
+    Received string:  "'use strict'·
+    require('dotenv').config();·
+    const mongoose = require('mongoose');
+    const app = require('./app');·
+    mongoose.Promise = global.Promise;·
+    mongoose.connect(process.env.MONGO_URI)
+      .then(() => {
+        console.log('Conexión a MongoDB establecida');
+        app.listen(app.get('port'), () => {
+          console.log(`Servidor corriendo en el puerto ${app.get('port')}`);
+        });
+      })
+      .catch(err => {
+        console.error('Error al conectar a MongoDB:', err);
+      });
+    "
+
+      29 |   test('index.js usa el Singleton y no conecta a Mongo por su cuenta', () => {
+      30 |     const src = leer('index.js');
+    > 31 |     expect(src).toMatch(/config\/db/);
+         |                 ^
+      32 |     expect(src).not.toMatch(/mongoose\.connect/);
+      33 |   });
+      34 | });
+
+
+  ● Higiene del repositorio y configuración segura › existe un .gitignore real (no .gitignore.txt)
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      35 |
+      36 | describe('Higiene del repositorio y configuración segura', () => {
+    > 37 |   test('existe un .gitignore real (no .gitignore.txt)', () => expect(existe('.gitignore')).toBe(true));
+         |                                                                                            ^
+      39 |     const g = existe('.gitignore') ? leer('.gitignore') : '';
+      40 |     expect(g).toMatch(/^\.env$/m);
+
+
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /^\.env$/m
+    Received string:  ""
+
+      39 |     const g = existe('.gitignore') ? leer('.gitignore') : '';
+    > 40 |     expect(g).toMatch(/^\.env$/m);
+         |               ^
+      42 |   });
+      43 |   test('JWT no tiene un secreto por defecto en el código', () => {
+
+
+  ● Higiene del repositorio y configuración segura › JWT no tiene un secreto por defecto en el código
+
+    expect(received).not.toMatch(expected)
+
+    Expected pattern: not /\|\|\s*['"]/
+    Received string:      "'use strict'
+
+    module.exports = {
+      secret: process.env.JWT_SECRET || 'clave_secreta_por_defecto',
+      expiresIn: '24h'
+    };
+    "
+
+      42 |   });
+      43 |   test('JWT no tiene un secreto por defecto en el código', () => {
+    > 44 |     expect(leer('config/jwt.js')).not.toMatch(/\|\|\s*['"]/);
+         |                                       ^
+      45 |   });
+      46 | });
+      47 |
+
+
+FAIL tests/unit/patrones.test.js
+  Strategy: ordenamiento intercambiable
+    ✕ ordena por calificación (mayor primero) (8 ms)
+    ✕ ordena por visualizaciones (mayor primero) (1 ms)
+    ✕ no modifica la lista original
+    ✕ una estrategia desconocida lanza error claro
+  Observer + Facade: publicar una reseña emite un evento
+    ✕ ResenaFacade.publicar guarda la reseña y emite "resena.creada" una vez (1 ms)
+    ✕ si un suscriptor falla, la publicación de la reseña no se rompe (1 ms)
+  Singleton: conexión a la base de datos
+    ✕ config/db expone conectar() y estaConectado() (1 ms)
+
+  ● Strategy: ordenamiento intercambiable › ordena por calificación (mayor primero)
+
+    Cannot find module '../../servicios/estrategias' from 'tests/unit/patrones.test.js'
+
+      10 | describe('Strategy: ordenamiento intercambiable', () => {
+      11 |   test('ordena por calificación (mayor primero)', () => {
+    > 12 |     const { obtenerEstrategia } = require('../../servicios/estrategias');
+         |                                   ^
+      13 |     expect(obtenerEstrategia('calificacion')(lista()).map(x => x.nombre)).toEqual(['B', 'C', 'A']);
+      14 |   });
+      15 |   test('ordena por visualizaciones (mayor primero)', () => {
+
+
+  ● Strategy: ordenamiento intercambiable › ordena por visualizaciones (mayor primero)
+
+    Cannot find module '../../servicios/estrategias' from 'tests/unit/patrones.test.js'
+
+      14 |   });
+      15 |   test('ordena por visualizaciones (mayor primero)', () => {
+    > 16 |     const { obtenerEstrategia } = require('../../servicios/estrategias');
+         |                                   ^
+      17 |     expect(obtenerEstrategia('visualizaciones')(lista()).map(x => x.nombre)).toEqual(['C', 'A', 'B']);
+      18 |   });
+      19 |   test('no modifica la lista original', () => {
+
+
+  ● Strategy: ordenamiento intercambiable › no modifica la lista original
+
+    Cannot find module '../../servicios/estrategias' from 'tests/unit/patrones.test.js'
+
+      18 |   });
+      19 |   test('no modifica la lista original', () => {
+    > 20 |     const { obtenerEstrategia } = require('../../servicios/estrategias');
+         |                                   ^
+      21 |     const original = lista();
+      22 |     obtenerEstrategia('calificacion')(original);
+      23 |     expect(original.map(x => x.nombre)).toEqual(['A', 'B', 'C']);
+
+
+  ● Strategy: ordenamiento intercambiable › una estrategia desconocida lanza error claro
+
+    Cannot find module '../../servicios/estrategias' from 'tests/unit/patrones.test.js'
+
+      24 |   });
+      25 |   test('una estrategia desconocida lanza error claro', () => {
+    > 26 |     const { obtenerEstrategia } = require('../../servicios/estrategias');
+         |                                   ^
+      27 |     expect(() => obtenerEstrategia('inventada')).toThrow();
+      28 |   });
+      29 | });
+
+
+  ● Observer + Facade: publicar una reseña emite un evento › ResenaFacade.publicar guarda la reseña y emite "resena.creada" una vez
+
+    Cannot find module '../../eventos/busEventos' from 'tests/unit/patrones.test.js'
+
+      35 |       crear: jest.fn().mockResolvedValue({ _id: 'r1', establecimientoId: 'e1', calificacion: 5 })
+      36 |     }));
+    > 37 |     const bus = require('../../eventos/busEventos');
+         |                 ^
+      38 |     const facade = require('../../servicios/resenaFacade');
+      39 |     const escuchador = jest.fn();
+      40 |     bus.on('resena.creada', escuchador);
+
+
+  ● Observer + Facade: publicar una reseña emite un evento › si un suscriptor falla, la publicación de la reseña no se rompe
+
+    Cannot find module '../../eventos/busEventos' from 'tests/unit/patrones.test.js'
+
+      47 |     jest.resetModules();
+      48 |     jest.doMock('../../servicios/resenaServicio', () => ({ crear: jest.fn().mockResolvedValue({ _id: 'r2' }) }));
+    > 49 |     const bus = require('../../eventos/busEventos');
+         |                 ^
+      50 |     const facade = require('../../servicios/resenaFacade');
+      51 |     bus.on('resena.creada', () => { throw new Error('fallo del suscriptor'); });
+      52 |     await expect(facade.publicar({ establecimientoId: 'e1' })).resolves.toMatchObject({ _id: 'r2' });
+
+
+  ● Singleton: conexión a la base de datos › config/db expone conectar() y estaConectado()
+
+    Cannot find module '../../config/db' from 'tests/unit/patrones.test.js'
+
+      56 | describe('Singleton: conexión a la base de datos', () => {
+      57 |   test('config/db expone conectar() y estaConectado()', () => {
+    > 58 |     const db = require('../../config/db');
+         |                ^
+      59 |     expect(typeof db.conectar).toBe('function');
+      60 |     expect(typeof db.estaConectado).toBe('function');
+      61 |   });
+
+
+PASS tests/integration/resenas.test.js
+  Reseñas: flujo de negocio
+    ✓ un usuario crea una reseña y se recalcula el promedio del local (40 ms)
+    ✓ sin comentario o calificación devuelve 400 (7 ms)
+    ✓ un usuario no puede editar la reseña de otra persona (403) (4 ms)
+  Seguridad: autenticación y roles (RBAC)
+    ✓ sin token → 401 (4 ms)
+    ✓ token falso → 401 (5 ms)
+    ✓ token firmado con otra clave → 401 (4 ms)
+    ✓ un empresario no puede crear reseñas (403) (4 ms)
+    ✓ un usuario no puede eliminar reseñas (403) (4 ms)
+    ✓ un usuario no puede crear establecimientos (403) (5 ms)
+    ✓ un usuario no puede listar usuarios (403) (10 ms)
+
+PASS tests/integration/auth.test.js
+  POST /api/auth/login
+    ✓ credenciales correctas devuelven un JWT con el rol (83 ms)
+    ✓ contraseña incorrecta devuelve 401 (26 ms)
+    ✓ cuenta pendiente no puede iniciar sesión (403) (19 ms)
+    ✓ faltan campos obligatorios devuelve 400 (3 ms)
+    ✓ la respuesta nunca incluye la contraseña (5 ms)
+
+PASS tests/unit/resenaServicio.test.js
+  Reseñas: recálculo del promedio
+    ✓ redondea el promedio a un decimal y actualiza la cantidad (1 ms)
+    ✓ si no quedan reseñas activas, el promedio vuelve a 0
+    ✓ eliminar una reseña que no existe no toca el establecimiento
+
+PASS tests/unit/establecimientoServicio.test.js
+  Catálogo: filtros de búsqueda
+    ✓ sin parámetros solo trae establecimientos activos (1 ms)
+    ✓ filtra por tipo sin distinguir mayúsculas
+    ✓ la palabra clave busca en 6 campos (1 ms)
+
+Test Suites: 2 failed, 4 passed, 6 total
+Tests:       16 failed, 31 passed, 47 total
+Snapshots:   0 total
+Time:        1.563 s, estimated 3 s
+Ran all test suites.
