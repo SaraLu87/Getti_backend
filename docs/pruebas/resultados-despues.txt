@@ -1,12 +1,16 @@
-PASS tests/integration/resenas.test.js
+
+> getti@1.0.0 test
+> jest --runInBand
+
 PASS tests/unit/patrones.test.js
-PASS tests/integration/auth.test.js
 PASS tests/arquitectura/contrato.test.js
-PASS tests/unit/establecimientoServicio.test.js
+PASS tests/integration/resenas.test.js
+PASS tests/integration/auth.test.js
 PASS tests/unit/resenaServicio.test.js
+PASS tests/unit/establecimientoServicio.test.js
 
 Test Suites: 6 passed, 6 total
 Tests:       48 passed, 48 total
 Snapshots:   0 total
-Time:        0.846 s, estimated 2 s
+Time:        3.796 s, estimated 4 s
 Ran all test suites.
